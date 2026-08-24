@@ -18,3 +18,8 @@ test("Basic form fillUp", async ({ page }) => {
      expect(await getSuccess.textContent()).toBe('Form submitted successfully');
 
 })
+
+test("Handle checkbox and radio buttons",async({page})=>{
+        await page.locator('a[href="#section-3"]').last().click();
+
+})
