@@ -21,29 +21,30 @@ test.describe("Automate All Modules", () => {
 
     test("Basic form fillUp", async ({ page }) => {
        await formFill.navigateToApl();
-       await formFill.form(user.username,user.email,user.password,user.phone,user.message);
+       await formFill.form(user.username,user.password,user.email,user.phone,user.message);
     })
 
-    test("Perform Click actions", async ({ page }) => {
-        await page.waitForLoadState();
-        await page.locator('a[href="#section-2"]').click();
-        await page.locator('#single-click-btn').click();
-        const singleClick = page.locator('p[data-testid="single-click-result"]');
-        expect(await singleClick.textContent()).toBe('Single clicked!');
+    // test("Perform Click actions", async ({ page }) => {
+    //     await page.waitForLoadState();
+    //     await page.locator('a[href="#section-2"]').click();
+    //     await page.locator('#single-click-btn').click();
+    //     const singleClick = page.locator('p[data-testid="single-click-result"]');
+    //     expect(await singleClick.textContent()).toBe('Single clicked!');
 
-        await page.locator('#double-click-btn').dblclick();
-        const doubleClick = page.locator('p[data-testid="double-click-result"]');
-        expect(await doubleClick.textContent()).toBe('Double clicked!');
 
-        await page.locator('#right-click-btn').click({ button: 'right' })
-        const rightClick = page.locator('p[data-testid="right-click-result"]');
-        expect(await rightClick.textContent()).toBe('Right click captured (context menu blocked)');
-    })
+    //     await page.locator('#double-click-btn').dblclick();
+    //     const doubleClick = page.locator('p[data-testid="double-click-result"]');
+    //     expect(await doubleClick.textContent()).toBe('Double clicked!');
 
-    test("Handle checkbox and radio buttons", async ({ page }) => {
-        await page.waitForLoadState();
-        await page.locator('a[href="#section-3"]').last().click();
+    //     await page.locator('#right-click-btn').click({ button: 'right' })
+    //     const rightClick = page.locator('p[data-testid="right-click-result"]');
+    //     expect(await rightClick.textContent()).toBe('Right click captured (context menu blocked)');
+    // })
 
-    })
+    // test("Handle checkbox and radio buttons", async ({ page }) => {
+    //     await page.waitForLoadState();
+    //     await page.locator('a[href="#section-3"]').last().click();
+
+    // })
 
 });

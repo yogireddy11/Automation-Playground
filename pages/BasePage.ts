@@ -13,7 +13,7 @@ export class BaseClass{
     }
 
     async navigateToApl(): Promise<void>{
-        await this.page.goto("/");
+        await this.page.goto('/practice');
     }
 
 
