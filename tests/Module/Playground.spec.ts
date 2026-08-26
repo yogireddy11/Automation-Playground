@@ -5,6 +5,9 @@ import { HandleBoxes } from '../../pages/HandleBoxes';
 import { PerformClicks } from '../../pages/TypeOfClicks';
 import { Dropdown } from "../../pages/DropDown";
 import { DynamicContext } from '../../pages/DynamicContext';
+import { HandleTable } from '../../pages/HandleTable';
+import { HandleAlerts } from '../../pages/HandleAlerts';
+import { HandleFrames } from '../../pages/Handleframes';
 
 
 test.describe("Automate All Modules", () => {
@@ -15,6 +18,9 @@ test.describe("Automate All Modules", () => {
     let checkBox: HandleBoxes;
     let dropdown: Dropdown;
     let dynamicContext: DynamicContext;
+    let handleTable: HandleTable;
+    let alerts: HandleAlerts;
+    let frames: HandleFrames;
 
 
     test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
@@ -27,6 +33,10 @@ test.describe("Automate All Modules", () => {
         checkBox = new HandleBoxes(page);
         dropdown = new Dropdown(page);
         dynamicContext = new DynamicContext(page);
+        handleTable = new HandleTable(page);
+        alerts = new HandleAlerts(page);
+
+        frames = new HandleFrames(page);
 
     })
 
@@ -53,9 +63,26 @@ test.describe("Automate All Modules", () => {
         await dropdown.handleDropdown();
     })
 
-    test("Handle dynamic context",async({})=>{
+    test("Handle dynamic context", async ({ }) => {
         await dynamicContext.navigateToApl();
         await dynamicContext.handleDynamicContext();
+    })
+    test("Automate Table", async ({ page }) => {
+        await handleTable.navigateToApl();
+        await handleTable.automateTable();
+        await handleTable.verifySeachBar('anita');
+        await handleTable.verifySeachBar('sdfsdf');
+    })
+
+    test("Handle the type of Alert ", async ({ page }) => {
+        await alerts.navigateToApl();
+        await alerts.alertsHandling();
+    })
+
+
+    test('Automate iframes', async ({ page }) => {
+        await frames.navigateToApl();
+        await frames.performFrame();
     })
 
 });
