@@ -8,6 +8,9 @@ import { DynamicContext } from '../../pages/DynamicContext';
 import { HandleTable } from '../../pages/HandleTable';
 import { HandleAlerts } from '../../pages/HandleAlerts';
 import { HandleFrames } from '../../pages/Handleframes';
+import { PerformMouseClicks } from '../../pages/PerfomMouseActions';
+import { MultipleWindow } from '../../pages/MultipleWindow';
+
 
 
 test.describe("Automate All Modules", () => {
@@ -21,6 +24,10 @@ test.describe("Automate All Modules", () => {
     let handleTable: HandleTable;
     let alerts: HandleAlerts;
     let frames: HandleFrames;
+    let performClicks: PerformMouseClicks;
+            let multipleWin : MultipleWindow;
+    
+
 
 
     test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
@@ -37,6 +44,9 @@ test.describe("Automate All Modules", () => {
         alerts = new HandleAlerts(page);
 
         frames = new HandleFrames(page);
+        performClicks = new PerformMouseClicks(page);
+                multipleWin = new MultipleWindow(page);
+
 
     })
 
@@ -67,22 +77,36 @@ test.describe("Automate All Modules", () => {
         await dynamicContext.navigateToApl();
         await dynamicContext.handleDynamicContext();
     })
-    test("Automate Table", async ({ page }) => {
+    test("Automate Table", async ({ }) => {
         await handleTable.navigateToApl();
         await handleTable.automateTable();
         await handleTable.verifySeachBar('anita');
         await handleTable.verifySeachBar('sdfsdf');
     })
 
-    test("Handle the type of Alert ", async ({ page }) => {
+    test("Handle the type of Alert ", async ({ }) => {
         await alerts.navigateToApl();
         await alerts.alertsHandling();
     })
 
 
-    test('Automate iframes', async ({ page }) => {
+    test('Automate iframes', async ({ }) => {
         await frames.navigateToApl();
         await frames.performFrame();
     })
+    test(" Perform the Drag and drop ", async ({ }) => {
+        await performClicks.navigateToApl();
+        await performClicks.performAction();
+        await performClicks.performHoverItem();
+    })
+
+    test(" Upload a file ", async ({ }) => {
+        await performClicks.navigateToApl();
+        await performClicks.uploadFile();
+    })
+    test(" Handle Multiple window  ",async({})=>{
+            await multipleWin.navigateToApl();
+            await multipleWin.automateWindow();
+        })
 
 });

@@ -1,17 +1,16 @@
 
 import { test, expect } from '@playwright/test';
-import { HandleTable } from '../../pages/HandleTable';
-import { HandleAlerts } from '../../pages/HandleAlerts';
-import { HandleFrames } from '../../pages/Handleframes';
+import { MultipleWindow } from '../../pages/MultipleWindow';
+        let multipleWin : MultipleWindow;
 
+    test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
+        await page.waitForLoadState();
+        multipleWin = new MultipleWindow(page);
+    })
 
+    test(" Handle Multiple window  ",async({})=>{
+        await multipleWin.navigateToApl();
+        await multipleWin.automateWindow();
+    })
 
-
-
-    // test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
      
-
-
-
-    // })
-
