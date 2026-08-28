@@ -15,34 +15,26 @@ declare const process: {
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const ci = Boolean(
-  (globalThis as { process?: { env?: { CI?: string } } }).process?.env?.CI,
-);
-
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: ci,
+  forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: ci ? 2 : 0,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: ci ? 1 : undefined,
+  workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-     baseURL: 'https://www.sreenidhirajakrishnan.com/practice',
+    // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    
-    headless: true,
+    headless: false,
     trace: 'on-first-retry',
-        screenshot: 'only-on-failure',
-        video: 'retain-on-failure',
-
   },
 
   /* Configure projects for major browsers */
@@ -87,6 +79,6 @@ export default defineConfig({
   // webServer: {
   //   command: 'npm run start',
   //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !ci,
+  //   reuseExistingServer: !process.env.CI,
   // },
 });

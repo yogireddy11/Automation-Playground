@@ -1,112 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { generateUser } from '../../testData/data';
-import { FormFill } from '../../pages/FormFillUp';
-import { HandleBoxes } from '../../pages/HandleBoxes';
-import { PerformClicks } from '../../pages/TypeOfClicks';
-import { Dropdown } from "../../pages/DropDown";
-import { DynamicContext } from '../../pages/DynamicContext';
-import { HandleTable } from '../../pages/HandleTable';
-import { HandleAlerts } from '../../pages/HandleAlerts';
-import { HandleFrames } from '../../pages/Handleframes';
-import { PerformMouseClicks } from '../../pages/PerfomMouseActions';
-import { MultipleWindow } from '../../pages/MultipleWindow';
 
+test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
+    await page.goto("https://www.sreenidhirajakrishnan.com/practice");
+    expect(page.url()).toBe("https://www.sreenidhirajakrishnan.com/practice");
+})
 
+test("Basic form fillUp", async ({ page }) => {
+    await page.locator('a[href="#section-1"]').last().click();
+    console.log(await page.title());
+    await page.locator("#text-input").fill("Virat Kohli");
+    await page.locator("#password-input").fill("Virat@123");
+    await page.locator("#email-input").fill("Virat123@gmail.com");
+    await page.locator("#phone-input").fill("9630258741");
+    await page.locator("#textarea-input").fill("My name is virat kohli. I'm unbeliveble player.");
+    await page.locator("#form-submit").click();
+    const getSuccess = page.getByText("Form submitted successfully");
+     expect(await getSuccess.textContent()).toBe('Form submitted successfully');
 
-test.describe("Automate All Modules", () => {
-
-    let formFill: FormFill;
-    let user: ReturnType<typeof generateUser>;
-    let clicks: PerformClicks;
-    let checkBox: HandleBoxes;
-    let dropdown: Dropdown;
-    let dynamicContext: DynamicContext;
-    let handleTable: HandleTable;
-    let alerts: HandleAlerts;
-    let frames: HandleFrames;
-    let performClicks: PerformMouseClicks;
-            let multipleWin : MultipleWindow;
-    
-
-
-
-    test.beforeEach("Launch an application and perform Actions", async ({ page }) => {
-
-        await page.waitForLoadState();
-
-        formFill = new FormFill(page);
-        user = generateUser();
-        clicks = new PerformClicks(page);
-        checkBox = new HandleBoxes(page);
-        dropdown = new Dropdown(page);
-        dynamicContext = new DynamicContext(page);
-        handleTable = new HandleTable(page);
-        alerts = new HandleAlerts(page);
-
-        frames = new HandleFrames(page);
-        performClicks = new PerformMouseClicks(page);
-                multipleWin = new MultipleWindow(page);
-
-
-    })
-
-    test("Basic form fillUp", async ({ }) => {
-        await formFill.navigateToApl();
-        await formFill.form(user.username, user.password, user.email, user.phone, user.message);
-    })
-
-    test("Perform Click actions", async ({ }) => {
-        await clicks.navigateToApl();
-        await clicks.clickOperation();
-    })
-
-    test("Handle checkbox and radio buttons", async ({ }) => {
-
-        await checkBox.navigateToApl();
-        await checkBox.handleCheckbox();
-        await checkBox.radioBtn();
-    })
-
-    test("Handle Dropdown", async ({ }) => {
-
-        await dropdown.navigateToApl();
-        await dropdown.handleDropdown();
-    })
-
-    test("Handle dynamic context", async ({ }) => {
-        await dynamicContext.navigateToApl();
-        await dynamicContext.handleDynamicContext();
-    })
-    test("Automate Table", async ({ }) => {
-        await handleTable.navigateToApl();
-        await handleTable.automateTable();
-        await handleTable.verifySeachBar('anita');
-        await handleTable.verifySeachBar('sdfsdf');
-    })
-
-    test("Handle the type of Alert ", async ({ }) => {
-        await alerts.navigateToApl();
-        await alerts.alertsHandling();
-    })
-
-
-    test('Automate iframes', async ({ }) => {
-        await frames.navigateToApl();
-        await frames.performFrame();
-    })
-    test(" Perform the Drag and drop ", async ({ }) => {
-        await performClicks.navigateToApl();
-        await performClicks.performAction();
-        await performClicks.performHoverItem();
-    })
-
-    test(" Upload a file ", async ({ }) => {
-        await performClicks.navigateToApl();
-        await performClicks.uploadFile();
-    })
-    test(" Handle Multiple window  ",async({})=>{
-            await multipleWin.navigateToApl();
-            await multipleWin.automateWindow();
-        })
-
-});
+})
